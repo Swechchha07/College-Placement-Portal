@@ -1,20 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>College Placement Portal</title>
+  <meta charset="UTF-8">
+  <title>College Placement Form</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>College Placement Portal</h1>
-  <form id="studentForm">
-    <input type="text" placeholder="Name" id="name" required>
-    <input type="email" placeholder="Email" id="email" required>
-    <input type="text" placeholder="Branch" id="branch" required>
-    <input type="number" placeholder="CGPA" id="cgpa" step="0.01" required>
-    <button type="submit">Add Student</button>
-  </form>
-  <h2>Registered Students</h2>
-  <ul id="studentList"></ul>
+
+  <div class="form-container">
+    <h1>LOGIN</h1>
+    <form id="studentForm">
+      
+      <label>Email:</label>
+      <input type="email" placeholder="Enter your email" id="email" required>
+
+      <label>Password:</label>
+      <input type="password" placeholder="Enter your password" id="password" required>
+
+      <div class="button-group">
+    <button type="button" id="signup">Sign Up</button>
+    <button type="submit" id="login">Log In</button>
+    
+  </div>
+
+    </form>
+    
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
