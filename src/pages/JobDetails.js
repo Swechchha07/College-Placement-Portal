@@ -4,9 +4,16 @@ import "../styles/JobDetails.css";
 import { Link } from "react-router-dom";
 import infosysLogo from "../assets/infosys_logo.jpg";
 import bgImg from "../assets/photo-1486406146926-c627a92ad1ab.jpg";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 function JobDetails() {
   // ✅ Background image style object (must be defined before return)
+
+  const navigate = useNavigate();
+const { state } = useLocation();
+const { company = "Infosys", role = "Software Engineer" } = state || {};
+
   const backgroundStyle = {
     backgroundImage: `url(${bgImg})`,
     backgroundSize: "cover",
@@ -94,8 +101,19 @@ function JobDetails() {
             <li>MongoDB</li>
           </ul>
 
-          <button className="apply-btn">Apply Now</button>
-          <button className="bookmark-btn">🔖 Save Job</button>
+          <button
+  className="apply-btn"
+  onClick={() =>
+    navigate("/apply", {
+      state: { company, role }
+    })
+  }
+>
+  Apply Now
+</button>
+
+
+          
         </div>
       </section>
 
