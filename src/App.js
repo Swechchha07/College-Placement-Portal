@@ -7,6 +7,9 @@ import ApplyPage from "./pages/ApplyPage";
 import StudentProfile from "./pages/StudentDashboard"; // this is your full profile view
 import ResumePage from "./pages/ResumePage"; // 👈 new resume-only view
 import EventsPage from "./pages/EventsPage"; // 👈 new events view
+import JobsPage from "./pages/JobsPage";
+import CompaniesPage from "./pages/CompaniesPage";
+
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
         <Route path="/profile" element={<StudentProfile />} />
         <Route path="/resume" element={<ResumePage />} />  {/* NEW */}
         <Route path="/events" element={<EventsPage />} />  {/* NEW */}
+        <Route path="/jobs" element={<JobsPage />} />
+        <Route path="/companies" element={<CompaniesPage />} />
       </Routes>
     </Router>
   );

@@ -10,6 +10,8 @@ const Sidebar = () => (
         <li><Link to="/resume">📄 Resume</Link></li>
         <li><Link to="/events">📅 Upcoming Events</Link></li>
         <li><Link to="/">🚪 Logout</Link></li>
+        
+
       </ul>
     </nav>
   </aside>
