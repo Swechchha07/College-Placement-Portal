@@ -19,6 +19,10 @@ const StudentDashboard = () => {
     }
   };
 
+  const handleDeleteResume = () => {
+    setResume({ file: null, lastUpdated: null });
+  };
+
   const student = {
     name: "Swechchha Nigam",
     roll: "2215001826",
@@ -73,23 +77,22 @@ const StudentDashboard = () => {
           <div className="card gray">
             <h3>Resume</h3>
             {resume.file ? (
-  <>
-    <p>📅 {resume.lastUpdated}</p>
-    <a href={resume.file} target="_blank" rel="noreferrer">📄 View Resume</a>
-    <button onClick={() => setResume({ file: null, lastUpdated: null })} className="delete-btn">
-      🗑 Delete Resume
-    </button>
-  </>
-) : (
-  <p>No resume uploaded</p>
-)}
-
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleResumeUpload}
-              className="upload-input"
-            />
+              <>
+                <p>📅 {resume.lastUpdated}</p>
+                <a href={resume.file} target="_blank" rel="noreferrer">📄 View Resume</a>
+                <button onClick={handleDeleteResume} className="delete-btn">🗑 Delete</button>
+              </>
+            ) : (
+              <>
+                <p>No resume uploaded</p>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleResumeUpload}
+                  className="upload-input"
+                />
+              </>
+            )}
           </div>
         </div>
 

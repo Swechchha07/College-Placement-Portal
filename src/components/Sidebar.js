@@ -1,22 +1,18 @@
-// src/components/Sidebar.js
-import React from "react";
-import "../styles/Dashboard.css"; // Ensure this path is correct
+import { Link } from "react-router-dom";
+import "../styles/Dashboard.css";
 
-const Sidebar = () => {
-  return (
-    <aside className="sidebar">
-      <h2 className="logo">GLA Portal</h2>
-      <nav>
-        <ul>
-          <li>🏠 Home</li>
-          <li>💼 Jobs</li>
-          <li>📄 Resume</li>
-          <li>🎓 My Profile</li>
-          <li>🚪 Logout</li>
-        </ul>
-      </nav>
-    </aside>
-  );
-};
+const Sidebar = () => (
+  <aside className="sidebar">
+    <h2 className="logo">My Profile</h2>
+    <nav>
+      <ul>
+        <li><Link to="/Home">🏠 Home</Link></li>
+        <li><Link to="/resume">📄 Resume</Link></li>
+        <li><Link to="/events">📅 Upcoming Events</Link></li>
+        <li><Link to="/">🚪 Logout</Link></li>
+      </ul>
+    </nav>
+  </aside>
+);
 
 export default Sidebar;
