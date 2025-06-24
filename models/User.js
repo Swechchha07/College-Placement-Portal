@@ -1,13 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: String,
-  email: { type: String, unique: true },
+  email: String,
   password: String,
+  branch: String,
   phone: String,
-  qualification: String,
-  role: { type: String, enum: ['student', 'admin', 'company'], default: 'student' },
+  cgpa: String,
   resume: String,
-}, { timestamps: true });
+  profilePic: String,
+  achievements: [String],
+  jobs: [
+    {
+      company: String,
+      role: String,
+      status: String,
+    },
+  ],
+});
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

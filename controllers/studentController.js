@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const path = require('path');
 
+
+
 exports.uploadResume = async (req, res) => {
   try {
     console.log(req.file);
