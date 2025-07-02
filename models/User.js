@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   phone: String,
   cgpa: String,
   resume: String,
+  resumeUpdatedAt: Date,
   profilePic: String,
   achievements: [String],
   jobs: [
