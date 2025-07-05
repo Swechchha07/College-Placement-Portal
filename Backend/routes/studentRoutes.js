@@ -1,9 +1,11 @@
 const express = require('express');
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware');
-const { uploadResume, getProfile } = require('../controllers/studentController');
+const { uploadResume, getProfile,getResume } = require('../controllers/studentController');
 const User = require("../models/User");
 const mongoose = require("mongoose");
+
+
 
 const router = express.Router();
 
@@ -19,6 +21,7 @@ const upload = multer({ storage });
 
 router.get('/profile', authenticate, getProfile);
 router.post('/upload-resume', authenticate, upload.single('resume'), uploadResume);
+router.get("/get-resume", authenticate,getResume)
 
 // Update profile
 router.put("/profile", authenticate, async (req, res) => {
