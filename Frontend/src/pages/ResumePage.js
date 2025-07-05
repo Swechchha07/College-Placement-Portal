@@ -1,7 +1,8 @@
 // src/pages/ResumePage.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import "../styles/Dashboard.css";
+import axios from "axios";
 
 const ResumePage = () => {
   const [resume, setResume] = useState({
@@ -18,6 +19,30 @@ const ResumePage = () => {
       });
     }
   };
+
+
+  useEffect(() => {
+  const fetchResume = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:5000/api/student/get-resume", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.data.filename) {
+        setResume({
+          file: `http://localhost:5000/uploads/${res.data.filename}`,
+          lastUpdated: new Date(res.data.updatedAt).toLocaleDateString(),
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching resume:", err);
+    }
+  };
+
+  fetchResume();
+}, []);
+
 
   const handleDelete = () => {
     setResume({ file: null, lastUpdated: null });
@@ -38,6 +63,7 @@ const ResumePage = () => {
                 width="100%"
                 height="500px"
                 title="Resume Preview"
+                type="application/pdf"
               />
               <button onClick={handleDelete} className="delete-btn">🗑 Delete Resume</button>
             </>

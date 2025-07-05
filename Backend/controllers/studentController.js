@@ -33,6 +33,23 @@ exports.deleteResume = async (req, res) => {
   }
 };
 
+//fetch resume
+exports.getResume = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user || !user.resume) {
+      return res.status(404).json({ error: "Resume not found" });
+    }
+
+    res.json({
+      filename: user.resume,
+      updatedAt: user.resumeUpdatedAt,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 
 exports.getProfile = async (req, res) => {

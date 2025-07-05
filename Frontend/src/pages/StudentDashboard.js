@@ -52,6 +52,29 @@ const StudentDashboard = () => {
     setResume({ file: null, lastUpdated: null });
   };
 
+  useEffect(() => {
+  const fetchResume = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:5000/api/student/get-resume", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.data.filename) {
+        setResume({
+          file: `http://localhost:5000/uploads/${res.data.filename}`,
+          lastUpdated: new Date(res.data.updatedAt).toLocaleDateString(),
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching resume:", err);
+    }
+  };
+
+  fetchResume();
+}, []);
+
+
   const handleAddAchievement = () => {
     if (newAchievement.trim() !== "") {
       setStudent((prev) => ({
