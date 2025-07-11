@@ -1,13 +1,9 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-
-  /* ✅ Fixed image path to load from public/ folder */
-  
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -15,20 +11,26 @@ body {
 }
 
 .form-container {
-  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 40px;
   border-radius: 12px;
   width: 400px;
+  max-width: 90%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   color: #fff;
 }
 
+.signup-mode .form-container {
+  width: 700px;
+  padding: 40px 50px;
+}
+
 .form-container h1 {
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 24px;
-  letter-spacing: 1px;
-  color: #ffffff;
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 700;
 }
 
 form {
@@ -39,56 +41,130 @@ form {
 label {
   margin: 10px 0 5px;
   font-weight: 500;
+  color: #fff;
+  font-size: 14px;
 }
 
 input {
-  padding: 12px;
+  padding: 12px 14px;
   border: none;
   border-radius: 8px;
   font-size: 14px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   color: #000;
   outline: none;
+  transition: outline 0.3s ease;
 }
 
 input:focus {
   outline: 2px solid #4caf50;
 }
 
-.button-group {
+.button-group,
+.form-actions-modern {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.button-group button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background-color: #4285f4;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.button-group button:hover {
-  background-color: #3367d6;
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  background-color: #4285f4;
+}
+
+.btn.primary {
   background-color: #4285f4;
   color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin-top: 10px;
+}
+
+.btn.secondary {
+  background-color: #888;
+  color: white;
 }
 
 .btn:hover {
-  background-color: #3367d6;
+  opacity: 0.9;
 }
+
+.form-footer {
+  margin-top: 15px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #4cafef;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.link-button:hover {
+  color: #ffffff;
+}
+
+.signup-grid-modern {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 30px;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.input-group input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #000;
+  outline: none;
+}
+
+.input-group input:focus {
+  outline: 2px solid #4285f4;
+}
+
+@media (max-width: 768px) {
+  .signup-mode .form-container {
+    width: 90%;
+    padding: 30px 25px;
+  }
+
+  .signup-grid-modern {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .form-actions-modern {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
