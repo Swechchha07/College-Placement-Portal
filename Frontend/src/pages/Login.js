@@ -6,11 +6,14 @@ import loginBg from "../assets/1746183253phpTmh5NC.jpg";
 
 function Login() {
   const [isSignup, setIsSignup] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    branch: ""
+    branch: "",
+    rollno: "",
+    cgpa: ""
   });
 
   const handleChange = (e) => {
@@ -25,7 +28,7 @@ function Login() {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/register", formData);
       alert(res.data.message);
-      setIsSignup(false); // switch to login
+      setIsSignup(false);
     } catch (err) {
       alert(err.response?.data?.error || "Registration failed");
     }
@@ -35,10 +38,14 @@ function Login() {
     e.preventDefault();
     try {
       const { email, password } = formData;
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const url = isAdmin
+        ? "http://localhost:5000/api/admin/login"
+        : "http://localhost:5000/api/auth/login";
+
+      const res = await axios.post(url, { email, password });
       alert("Login successful!");
-      localStorage.setItem("token", res.data.token); // store JWT token
-      window.location.href = "/home"; // redirect to dashboard
+      localStorage.setItem("token", res.data.token);
+      window.location.href = isAdmin ? "/admin/dashboard" : "/home";
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
@@ -57,45 +64,100 @@ function Login() {
   };
 
   return (
-    <div style={loginPageStyle}>
+    <div className={isSignup ? "signup-mode" : ""} style={loginPageStyle}>
       <div className="form-container">
-        {isSignup ? (
-          <>
-            <h1>SIGN UP FORM</h1>
-            <form onSubmit={handleSignup}>
-              <label>Name:</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" required />
-
+        <h1>{isSignup ? "Sign Up" : isAdmin ? "Admin Login" : "Student Login"}</h1>
+        <form onSubmit={isSignup ? handleSignup : handleLogin}>
+          {!isSignup ? (
+            <>
               <label>Email:</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
-
-              <label>Create Password:</label>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter a password" required />
-
-              <label>Branch:</label>
-              <input type="text" name="branch" value={formData.branch} onChange={handleChange} placeholder="Enter your branch" required />
-
-              <button type="submit" className="btn">Create Account</button>
-              <button type="button" onClick={() => setIsSignup(false)} className="btn">Back to Login</button>
-            </form>
-          </>
-        ) : (
-          <>
-            <h1>LOGIN</h1>
-            <form onSubmit={handleLogin}>
-              <label>Email:</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
 
               <label>Password:</label>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" required />
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                required
+              />
 
-              <div className="button-group">
-                <button type="button" onClick={() => setIsSignup(true)}>Sign Up</button>
-                <button type="submit">Log In</button>
+              <div style={{ marginTop: "10px", color: "white" }}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isAdmin}
+                    onChange={() => setIsAdmin(!isAdmin)}
+                    style={{ marginRight: "5px" }}
+                  />
+                  Login as Admin
+                </label>
               </div>
-            </form>
-          </>
-        )}
+
+              <button type="submit" className="btn">Log In</button>
+
+              <div className="form-footer">
+                <span>Don't have an account? </span>
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={() => setIsSignup(true)}
+                >
+                  Sign up
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="signup-grid-modern">
+                <div className="input-group">
+                  <label>Name:</label>
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name" required />
+                </div>
+
+                <div className="input-group">
+                  <label>Email:</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"required />
+                </div>
+
+                <div className="input-group">
+                  <label>Password:</label>
+                  <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter Password" required />
+                </div>
+
+                <div className="input-group">
+                  <label>Branch:</label>
+                  <input type="text" name="branch" value={formData.branch} onChange={handleChange}placeholder="Enter branch" required />
+                </div>
+
+                <div className="input-group">
+                  <label>University Roll No.:</label>
+                  <input type="text" name="rollno" value={formData.rollno} onChange={handleChange} placeholder="Enter rollno." required />
+                </div>
+
+                <div className="input-group">
+                  <label>CGPA:</label>
+                  <input type="text" name="cgpa" value={formData.cgpa} onChange={handleChange}placeholder="Enter CGPA" required />
+                </div>
+              </div>
+
+              <div className="form-actions-modern">
+                <button type="button" className="btn secondary" onClick={() => setIsSignup(false)}>
+                  Back to Login
+                </button>
+                <button type="submit" className="btn primary">Sign Up</button>
+              </div>
+            </>
+          )}
+        </form>
       </div>
     </div>
   );
